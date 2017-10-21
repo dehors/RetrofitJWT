@@ -1,6 +1,7 @@
 package com.example.slam24.retrofitjwt;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -57,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor  = sharedPref.edit();
                     editor.putString("token", response.body().getToken());
                     editor.commit();
-                    Toast.makeText(getApplicationContext(),sharedPref.getString("token","No token"),Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(MainActivity.this, NavigationDrawer.class);
+                    startActivity(intent);
                 }else{
                     Toast.makeText(getApplicationContext(),Integer.toString(response.code()),Toast.LENGTH_LONG).show();
                 }
