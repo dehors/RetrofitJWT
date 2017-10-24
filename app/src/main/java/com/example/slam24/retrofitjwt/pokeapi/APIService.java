@@ -1,6 +1,6 @@
 package com.example.slam24.retrofitjwt.pokeapi;
 
-import com.example.slam24.retrofitjwt.models.Auth;
+import com.example.slam24.retrofitjwt.responses.AuthResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -13,7 +13,7 @@ import retrofit2.http.POST;
 
 public interface APIService {
     @FormUrlEncoded
-    @POST("authenticate")
-    Call<Auth> userLogIn(@Field("username") String username,
-                         @Field("password") String password);
+    @POST("authenticatetest")
+    Call<AuthResponse> userLogIn(@Field("username") String username,
+                                   @Field("password") String password);
 }

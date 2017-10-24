@@ -1,5 +1,6 @@
 package com.example.slam24.retrofitjwt;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,16 +13,37 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.slam24.retrofitjwt.Session.Session;
 
 public class NavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    TextView tvUser, tvEmail;
+    private Session session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        session = new Session(this);
+
+        View header = ((NavigationView)findViewById(R.id.nav_view)).getHeaderView(0);
+        tvUser = (TextView)header.findViewById(R.id.tvUserHeaderNav);
+        tvEmail = (TextView)header.findViewById(R.id.tvEmailHeaderNav);
+        TextView error = (TextView)findViewById(R.id.tverror);
+
+        try {
+            tvUser.setText(session.getvarString("username"));
+            tvEmail.setText(session.getvarString("email"));
+        }catch (Exception e){
+            error.setText(e.toString());
+            Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -40,6 +62,8 @@ public class NavigationDrawer extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
     }
 
     @Override
